@@ -62,7 +62,7 @@ namespace HackerRankExam
                     }
                 }              
             }
-            string result = word2.ToString();
+            string result = string.Concat(word2);
             return result.Contains(substr)?result:"-1";
         }
 
