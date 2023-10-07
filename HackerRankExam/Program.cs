@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HackerRankExam
 {
@@ -8,16 +9,17 @@ namespace HackerRankExam
         static void Main(string[] args)
         {
             #region 13-EqualPrice (20dk)
-            //List<long> result = countMinimumOperations(new List<int>() { 2, 5, 1 }, new List<int>() { 8, 4, 3 });
-            //List<long> result2 = countMinimumOperations(new List<int>() { 2 }, new List<int>() { 8,4,3,10,6 });
-            //foreach(var item in result2)
-            //{
-            //    Console.WriteLine(item);
-            //}
+            List<long> result = countMinimumOperations2(new List<int>() { 2, 5, 1 }, new List<int>() { 8, 4, 3 });
+            List<long> result2 = countMinimumOperations2(new List<int>() { 2 }, new List<int>() { 8, 4, 3, 10, 6 });
+            foreach (var item in result2)
+            {
+                Console.WriteLine(item);
+            }
             #endregion
 
             #region 12-StringReplacement 54dk
-            //Console.WriteLine(getSmallestString("db??c???erdec", "deciph"));
+            //Console.WriteLine(getSmallestString("db??c???erdec??", "deciph"));
+            //Console.WriteLine(getSmallestString("db??c???erdec??db??c???erdec??", "deciph"));
             #endregion
 
             #region 11-ComplianceCrawlerDirectoryReset (15dk)
@@ -42,9 +44,18 @@ namespace HackerRankExam
             return result;
         }
 
+        public static List<long> countMinimumOperations2(List<int> price, List<int> query)
+        {
+            List<long> result = query
+                .Select(q => price.Select(p => (long)Math.Abs(q - p)).Sum())
+                .ToList();
+
+            return result;
+        }
         public static string getSmallestString(string word, string substr)
         {
             int subind = 0;
+            int count = 0;
             char[] word2 = word.ToCharArray();
             for (int i = 0; i < word.Length; i++)
             {
@@ -60,7 +71,8 @@ namespace HackerRankExam
                         if (word[i] == '?') { word2[i] = 'a'; }
                         subind = 0;
                     }
-                }              
+                }
+                
             }
             string result = string.Concat(word2);
             return result.Contains(substr)?result:"-1";
