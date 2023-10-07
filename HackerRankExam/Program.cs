@@ -16,8 +16,8 @@ namespace HackerRankExam
             //}
             #endregion
 
-            #region 12-StringReplacement 11:29
-            Console.WriteLine(getSmallestString("db??c???erdec", "deciph"));
+            #region 12-StringReplacement 54dk
+            //Console.WriteLine(getSmallestString("db??c???erdec", "deciph"));
             #endregion
 
             #region 11-ComplianceCrawlerDirectoryReset (15dk)
