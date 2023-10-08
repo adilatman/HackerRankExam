@@ -9,23 +9,24 @@ namespace HackerRankExam
         static void Main(string[] args)
         {
             #region 13-EqualPrice (20dk)
-            List<long> result = countMinimumOperations2(new List<int>() { 2, 5, 1 }, new List<int>() { 8, 4, 3 });
-            List<long> result2 = countMinimumOperations2(new List<int>() { 2 }, new List<int>() { 8, 4, 3, 10, 6 });
-            foreach (var item in result2)
-            {
-                Console.WriteLine(item);
-            }
+            //List<long> result = countMinimumOperations2(new List<int>() { 2, 5, 1 }, new List<int>() { 8, 4, 3 });
+            //List<long> result2 = countMinimumOperations2(new List<int>() { 2 }, new List<int>() { 8, 4, 3, 10, 6 });
+            //foreach (var item in result2)
+            //{
+            //    Console.WriteLine(item);
+            //}
             #endregion
 
             #region 12-StringReplacement 54dk
-            //Console.WriteLine(getSmallestString("db??c???erdec??", "deciph"));
-            //Console.WriteLine(getSmallestString("db??c???erdec??db??c???erdec??", "deciph"));
+            Console.WriteLine(getSmallestString("s?b?dga??jjk", "abc"));
             #endregion
 
             #region 11-ComplianceCrawlerDirectoryReset (15dk)
             //int result = minimumSteps(new List<string>() { "x/", "../", "y/", "z/"});
             //Console.WriteLine(result);
             #endregion
+
+
 
             Console.ReadLine();
         }
@@ -43,7 +44,6 @@ namespace HackerRankExam
             }
             return result;
         }
-
         public static List<long> countMinimumOperations2(List<int> price, List<int> query)
         {
             List<long> result = query
@@ -54,30 +54,38 @@ namespace HackerRankExam
         }
         public static string getSmallestString(string word, string substr)
         {
-            int subind = 0;
-            int count = 0;
-            char[] word2 = word.ToCharArray();
-            for (int i = 0; i < word.Length; i++)
+            string smallest = "zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz";
+            //string smallest = new string('z', word.Length);
+            
+            for (int j = 0; j < word.Length - 1; j++)
             {
-                if (subind < substr.Length)
+                int subind = 0;
+                char[] word2 = word.ToCharArray();
+                for (int i = j; i < word.Length; i++)
                 {
-                    if (word[i] == substr[subind] || word[i] == '?')
+                    if (subind < substr.Length)
                     {
-                        word2[i] = substr[subind];
-                        subind++;
+                        if (word[i] == substr[subind] || word[i] == '?')
+                        {
+                            word2[i] = substr[subind];
+                            subind++;
+                        }
+                        else
+                        {
+                            word2 = word.ToCharArray();
+                            subind = 0;
+                        }
                     }
                     else
                     {
-                        if (word[i] == '?') { word2[i] = 'a'; }
-                        subind = 0;
+                        string newWord = new string(string.Concat(word2).Replace('?', 'a'));
+                        smallest = string.Compare(newWord, smallest) < 0 ? newWord : smallest;
+                        break;
                     }
                 }
-                
             }
-            string result = string.Concat(word2);
-            return result.Contains(substr)?result:"-1";
+            return smallest.Contains(substr)?smallest:"-1";
         }
-
         public static int minimumSteps(List<string> loggedMoves)
         {
             int result = 0;
